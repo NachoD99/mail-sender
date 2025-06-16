@@ -19,8 +19,10 @@ const path = require("path");
 app.post("/api/contact", async (req, res) => {
   const { name, email, company, message } = req.body;
 
+  console.log("📩 Data recibida en /api/contact:", req.body); 
   if (!email || !message) {
-    return res.status(400).json({ error: "Email and message are required" });
+    return res.status(400).json({  error: "Email and message are required",
+      bodyRecibido: req.body });
   }
 
   try {
