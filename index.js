@@ -4,10 +4,10 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://trioptimo.com", "https://www.trioptimo.com"], // permití ambos
+  origin: ["http://localhost:5000", "https://trioptimo.com", "https://www.trioptimo.com"], // permití ambos
   methods: ["POST", "GET", "OPTIONS"],
 }));
 
@@ -29,6 +29,9 @@ app.post("/api/contact", async (req, res) => {
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false, // ⛔️ Permitir certificados autofirmados
       },
     });
 
